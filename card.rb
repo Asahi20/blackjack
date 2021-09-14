@@ -20,6 +20,6 @@ class Card
   def initialize(mark, number)
     @mark = mark
     @number = number
-    @point = @@cord_point.fetch(@number)
+    @point = @@card_point.fetch(@number)
   end
 end
