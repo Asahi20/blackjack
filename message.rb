@@ -97,4 +97,29 @@ module Message
     TEXT
   end
 
+  def select_action_msg(player, hit_num, stand_num)
+    puts <<~TEXT
+
+    #{player.class}の行動を選択してください。
+
+    #{hit_num}. Hit #{stand_num}. Stand
+
+    TEXT
+  end
+
+  def error_msg_about_action(hit_num, stand_num)
+    puts <<~TEXT
+      --------------------------------------
+      error ： #{hit_num} か #{stand_num} を入力してください。
+      --------------------------------------
+    TEXT
+  end
+
+  def player_turn_end_msg(player)
+    puts <<~TEXT
+
+      #{player.class}はカードを引き終わりました。
+
+    TEXT
+  end
 end
