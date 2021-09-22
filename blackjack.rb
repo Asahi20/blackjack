@@ -1,6 +1,7 @@
 
 require_relative "message"
 require_relative "deck"
+require_relative "rule"
 
 class Blackjack
 
@@ -8,6 +9,7 @@ class Blackjack
   STAND_NUM = 2
 
   include Message
+  include Rule
 
   def initialize(dealer, player)
     @dealer = dealer
@@ -25,6 +27,7 @@ class Blackjack
 
     deal_first
     start_player_turn unless @player.blackjack?
+    start_dealer_turn unless @player.bust?
   end
 
   private
@@ -99,5 +102,24 @@ class Blackjack
       error_msg_about_action(HIT_NUM, STAND_NUM)
     end
     action_num
+  end
+
+  def start_dealer_turn
+    dealers_hand_msg(@dealer)
+    show_hand_msg(@dealer)
+
+    info_status_or_points(@dealer)
+
+    return if @player.blackjack?
+
+    type_enter_msg
+    $stdin.gets.chomp
+
+    while continue_drawing_conditions?(@dealer)
+      dealer_draw_msg(@dealer, STOP_DRAWING_NUM)
+      deal_card_to(@dealer)
+      show_hand_msg(@dealer)
+      info_status_or_points(@dealer)
+    end
   end
 end

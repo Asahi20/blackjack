@@ -122,4 +122,29 @@ module Message
 
     TEXT
   end
+
+  def dealers_hand_msg(dealer)
+    puts <<~TEXT
+
+      #{dealer.class}の手札を確認します。
+
+    TEXT
+  end
+
+  def type_enter_msg
+    puts <<~TEXT
+
+      （ キーボードでEnterキーを押してください。）
+
+    TEXT
+  end
+
+  def dealer_draw_msg(dealer, stop_drawing_num)
+    puts <<~TEXT
+
+      #{stop_drawing_num}点未満なので
+      #{dealer.class}はもう1枚カードを引きます。
+
+    TEXT
+  end
 end

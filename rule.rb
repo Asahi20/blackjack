@@ -5,6 +5,7 @@ module Rule
   BLACKJACK_HAND_CARDS_SIZE = 2
   STATUS_BLACKJACK = 0
   STATUS_BUST = 1
+  STOP_DRAWING_NUM = 17
 
   def adjustable?(point)
     point + ADJUST_NUM <= BLACKJACK_NUM
@@ -18,4 +19,7 @@ module Rule
     point > BLACKJACK_NUM
   end
 
+  def continue_drawing_conditions?(dealer)
+    dealer.point < STOP_DRAWING_NUM
+  end
 end
