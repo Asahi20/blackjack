@@ -22,4 +22,12 @@ class Card
     @number = number
     @point = @@card_point.fetch(@number)
   end
+
+  def ace?
+    @number if @number == "A"
+  end
+
+  def card_info
+    "#{@mark} #{@number}"
+  end
 end

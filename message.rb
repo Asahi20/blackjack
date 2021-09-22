@@ -42,4 +42,59 @@ module Message
 
     TEXT
   end
+
+  def first_deal_msg(dealer)
+    puts <<~TEXT
+
+      #{dealer.class}がカードを2枚ずつ配ります。
+
+    TEXT
+  end
+  def show_hand_msg(character, first_time: false)
+    if first_time
+      puts <<~TEXT
+      ----------- #{character.class} 手札 -----------
+       1枚目 ： #{character.hand_cards[0].card_info}
+       2枚目 ： 伏せられている
+      -----------------------------------
+      TEXT
+    else
+      puts <<~TEXT
+
+        ----------- #{character.class} 手札 -----------
+      TEXT
+      character.hand_cards.each.with_index(1) do |card, i|
+        puts " #{i}枚目 ： #{card.card_info}"
+      end
+      puts "-----------------------------------"
+    end
+  end
+
+  def point_msg(character)
+    point_msg_1 = "#{character.class}の手札の合計ポイントは #{character.point_list[0]}"
+    point_msg_2 = "、もしくは #{character.point_list[1]} "
+
+    print point_msg_1
+
+    print point_msg_2 if character.point_list[1]
+
+    puts "です。"
+  end
+
+  def blackjack_msg(character)
+    puts <<~TEXT
+
+    #{character.class}の手札はブラックジャックです！
+
+    TEXT
+  end
+
+  def bust_msg(character)
+    puts <<~TEXT
+
+      #{character.class}はバーストしました。
+
+    TEXT
+  end
+
 end

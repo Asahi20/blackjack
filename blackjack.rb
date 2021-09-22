@@ -19,6 +19,8 @@ class Blackjack
     @player.reset
 
     @bet = request_bet
+
+    deal_first
   end
 
   private
@@ -51,7 +53,7 @@ class Blackjack
   end
 
   def deal_card_to(character)
-    draw_card = @dealer.draw_card)(@deck)
+    drawn_card = @dealer.draw_card(@deck)
     character.receive(drawn_card)
   end
 
