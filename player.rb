@@ -44,4 +44,8 @@ class Player < Character
   def lose?
     @game_result = GAME_RESULT_LOSE
   end
+
+  def settle(dividend)
+    @money += dividend
+  end
 end

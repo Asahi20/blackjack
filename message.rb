@@ -179,4 +179,28 @@ module Message
 
     TEXT
   end
+
+  def dividend_msg(dividend, player)
+    puts <<~TEXT
+
+      -------- money_information -------------
+
+      配当金： #{dividend}円
+
+      現在の所持金 ： #{player.money}円
+
+      ----------------------------------------
+
+    TEXT
+  end
+
+  def info_gameover_msg
+   puts <<~TEXT
+
+     所持金が0円になりました。
+
+     ゲームオーバー
+
+   TEXT
+ end
 end
