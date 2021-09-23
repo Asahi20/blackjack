@@ -202,5 +202,41 @@ module Message
      ゲームオーバー
 
    TEXT
+  end
+
+ def continue_or_exit_msg(game_continue_num, game_exit_num)
+   puts <<~TEXT
+
+      ゲームを続けますか？
+      ----------------------------------------
+
+      #{game_continue_num}.ゲームを続ける #{game_exit_num}.ゲームをやめる
+
+      ----------------------------------------
+    TEXT
  end
+
+ def error_msg_about_continue_or_exit(game_continue_num, game_exit_num)
+   puts <<~TEXT
+      ----------------------------------------
+        error ： #{game_continue_num} か #{game_exit_num} を入力してください。
+      ----------------------------------------
+    TEXT
+ end
+
+ def game_continue_msg
+   puts <<~TEXT
+
+      ゲームを続けます。
+
+    TEXT
+ end
+
+ def game_exit_msg
+    puts <<~TEXT
+
+      ゲーム終了
+
+    TEXT
+  end
 end

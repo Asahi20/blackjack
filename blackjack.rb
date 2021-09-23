@@ -7,6 +7,9 @@ class Blackjack
 
   HIT_NUM = 1
   STAND_NUM = 2
+  GAME_CONTINUE_NUM = 1
+  GAME_EXIT_NUM = 2
+
 
   include Message
   include Rule
@@ -18,19 +21,23 @@ class Blackjack
 
   def start
     start_msg
-    @deck = Deck.new
+    loop do
+      @deck = Deck.new
 
-    @dealer.reset
-    @player.reset
+      @dealer.reset
+      @player.reset
 
-    @bet = request_bet
+      @bet = request_bet
 
-    deal_first
-    start_player_turn unless @player.blackjack?
-    start_dealer_turn unless @player.bust?
-    judge_winner
-    settle_dividend
-    game_exit if @player.money == 0
+      deal_first
+      start_player_turn unless @player.blackjack?
+      start_dealer_turn unless @player.bust?
+      judge_winner
+      settle_dividend
+      game_exit if @player.money == 0
+
+      continue_or_exit
+    end
   end
 
   private
@@ -184,5 +191,31 @@ class Blackjack
   def game_exit
     info_gameover_msg
     exit
+  end
+
+  def continue_or_exit
+    action_num = request_continue_or_exit
+
+    case action_num
+    when GAME_EXIT_NUM
+      game_exit_msg
+      exit
+    when GAME_CONTINUE_NUM
+      game_continue_msg
+    end
+  end
+
+  def request_continue_or_exit
+    continue_or_exit_msg(GAME_CONTINUE_NUM, GAME_EXIT_NUM)
+
+    action_num = 0
+    loop do
+        action_num = @player.select_action
+        break if action_num.between?(GAME_CONTINUE_NUM, GAME_EXIT_NUM)
+
+        error_msg_about_continue_or_exit(GAME_CONTINUE_NUM, GAME_EXIT_NUM)
+    end
+    action_num
+
   end
 end
