@@ -147,4 +147,36 @@ module Message
 
     TEXT
   end
+
+  def compare_point_msg
+    puts <<~TEXT
+
+      勝敗判定に参りましょう。
+
+    TEXT
+  end
+
+  def win_msg(player)
+    puts <<~TEXT
+
+      おめでとうございます。#{player.class}の勝ちです!
+
+    TEXT
+  end
+
+  def lose_msg(player)
+    puts <<~TEXT
+
+      ディーラーの勝利。#{player.class}の負けです。
+
+    TEXT
+  end
+
+  def end_in_tie_msg
+    puts <<~TEXT
+
+      合計ポイントが同点となりました。引き分けです。
+
+    TEXT
+  end
 end

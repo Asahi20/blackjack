@@ -28,6 +28,7 @@ class Blackjack
     deal_first
     start_player_turn unless @player.blackjack?
     start_dealer_turn unless @player.bust?
+    judge_winner
   end
 
   private
@@ -120,6 +121,51 @@ class Blackjack
       deal_card_to(@dealer)
       show_hand_msg(@dealer)
       info_status_or_points(@dealer)
+    end
+  end
+
+  def judge_winner
+    compare_point_msg
+
+    type_enter_msg
+    $stdin.gets.chomp
+
+    show_hand_msg(@player)
+    info_status_or_points(@player)
+
+    show_hand_msg(@dealer)
+    info_status_or_points(@dealer)
+
+    if @dealer.bust?
+      @player.set_win
+    elsif @player.bust?
+      @player.set_lose
+    elsif @dealer.point < @player.point
+      @player.set_win
+    elsif @player.point < @dealer.point
+      @player.set_lose
+    else
+      judge_winner_when_same_point
+    end
+
+    info_judge
+  end
+
+  def judge_winner_when_same_point
+    if @player.blackjack? && !@dealer.blackjack?
+      @player.set_win
+    elsif !@player.blackjack? && @dealer.blackjack?
+      @player.set_lose
+    end
+  end
+
+  def info_judge
+    if @player.win?
+      win_msg(@player)
+    elsif @player.lose?
+      lose_msg(@player)
+    else
+      end_in_tie_msg
     end
   end
 end
